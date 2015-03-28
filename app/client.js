@@ -4,7 +4,10 @@
 import React from "react";
 import App from "./app";
 
-window.React = React; // For chrome dev tool support
+//put React into the global scope For chrome dev tool support
+window.React = React;
+//grab the app node
 let mountNode = document.getElementById('app');
+//render our app component into that node
 React.render(<App/>, mountNode);
 

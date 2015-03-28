@@ -2,7 +2,7 @@
 import React from "react";
 
 /**
- * The RepoList is a list of Github repositories
+ * The RepoList is a list of GitHub repositories
  */
 export default
 class RepoList extends React.Component {
@@ -17,8 +17,8 @@ class RepoList extends React.Component {
         });
 
         return (
-            <div className="repo-list">
-                <h1>Repo list</h1>
+            <div {...this.props} className={this.props.className + " repo-list"}>
+                <h1>Repositories</h1>
                 {repos}
             </div>
         );
