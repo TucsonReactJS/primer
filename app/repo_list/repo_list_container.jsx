@@ -46,14 +46,6 @@ class RepoListContainer extends React.Component {
 
     /**
      * http://facebook.github.io/react/docs/component-specs.html
-     * Invoked immediately after the component's updates are flushed to the DOM. This method is not called for
-     * the initial render. Use this as an opportunity to operate on the DOM when the component has been updated.
-     */
-    componentDidUpdate() {
-    }
-
-    /**
-     * http://facebook.github.io/react/docs/component-specs.html
      * Invoked once, only on the client (not on the server), immediately after the initial rendering occurs.
      * At this point in the lifecycle, the component has a DOM representation which you can access via
      * React.findDOMNode(this). If you want to integrate with other JavaScript frameworks, set timers using
@@ -81,8 +73,8 @@ class RepoListContainer extends React.Component {
     render() {
         return (
             <div {...this.props}>
-                <RepoListFilter className="col-md-3" filters={this.state.filters} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
-                <RepoList repos={this.state.repos} className="col-md-9" />
+                <RepoListFilter className="col-sm-3" filters={this.state.filters} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
+                <RepoList repos={this.state.repos} className="col-sm-9" />
             </div>
         );
     }
