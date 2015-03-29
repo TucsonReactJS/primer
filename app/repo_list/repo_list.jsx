@@ -10,6 +10,32 @@ class RepoList extends React.Component {
         super(props);
     }
 
+    /**
+     * http://facebook.github.io/react/docs/component-specs.html#updating-componentwillreceiveprops
+     * Invoked when a component is receiving new props. This method is not called for the initial render.
+     Use this as an opportunity to react to a prop transition before render() is called by updating the state using
+     this.setState(). The old props can be accessed via this.props. Calling this.setState() within this function will
+     not trigger an additional render.
+     */
+    componentWillReceiveProps( nextProps ) {
+        this.setState({previousCount: this.props.repos.length});
+    }
+
+    /**
+     * http://facebook.github.io/react/docs/component-specs.html
+     * The render() method is required.
+     When called, it should examine this.props and this.state and return a single child component.
+     This child component can be either a virtual representation of a native DOM component (such as <div />
+     or React.DOM.div()) or another composite component that you've defined yourself. You can also return null or
+     false to indicate that you don't want anything rendered. Behind the scenes, React renders a <noscript> tag to
+     work with our current diffing algorithm. When returning null or false, React.findDOMNode(this) will return null.
+     The render() function should be pure, meaning that it does not modify component state, it returns the same result
+     each time it's invoked, and it does not read from or write to the DOM or otherwise interact with the browser
+     (e.g., by using setTimeout). If you need to interact with the browser, perform your work in componentDidMount()
+     or the other lifecycle methods instead. Keeping render() pure makes server rendering more practical and makes
+     components easier to think about.
+     * @returns {XML}
+     */
     render() {
         //create our repo elements
         let repos = this.props.repos.map(( r, idx ) => {
@@ -26,7 +52,13 @@ class RepoList extends React.Component {
                     </a>
                 </div>
                 <div className="media-body">
-                    <h4 className="media-heading">{r.name}</h4>
+                    <h4 className="media-heading">{r.name} &nbsp;
+                        <small>
+                            <span className="label label-info">
+                                <span className="glyphicon glyphicon-star" aria-hidden="true">{r.stargazers_count}</span>
+                            </span>
+                        </small>
+                    </h4>
                         {r.description}
                 </div>
             </li>
@@ -34,7 +66,9 @@ class RepoList extends React.Component {
 
         return (
             <div {...this.props} className={this.props.className + " repo-list"}>
-                <h1>ReactJS Repositories</h1>
+                <h1>ReactJS
+                    <small> {this.props.repos.length} repositories</small>
+                </h1>
                 <ul className="media-list">
                     {repos}
                 </ul>

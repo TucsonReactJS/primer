@@ -35,7 +35,7 @@ class RepoListContainer extends React.Component {
      */
     getData() {
         request.get(APP_CONSTANTS.API_BASE + "search/repositories")
-            .query({q: 'react'})
+            .query({q: `react ${'stars:>=' + this.state.filters.stars}`})
             .query({sort: this.state.filters.sort})
             .end(( err, resp ) => {
                 if ( !err ) {
@@ -73,8 +73,8 @@ class RepoListContainer extends React.Component {
     render() {
         return (
             <div {...this.props}>
-                <RepoListFilter className="col-sm-3" filters={this.state.filters} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
-                <RepoList repos={this.state.repos} className="col-sm-9" />
+                <RepoListFilter className="col-xs-3" filters={this.state.filters} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
+                <RepoList repos={this.state.repos} className="col-xs-9" />
             </div>
         );
     }
@@ -88,5 +88,5 @@ RepoListContainer.propTypes = {repos: React.PropTypes.array, filters: React.Prop
  * Define the default props for this component
  * @type {{filters: {sort: string}}}
  */
-RepoListContainer.defaultProps = {repos: [], filters: {sort: "stars"}};
+RepoListContainer.defaultProps = {repos: [], filters: {sort: "stars", stars: "500"}};
 
