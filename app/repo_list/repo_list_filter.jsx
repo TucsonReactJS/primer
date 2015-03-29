@@ -15,7 +15,7 @@ class RepoListFilter extends React.Component {
      * Handle changing the selected sort radio
      */
     handleSortChange( event ) {
-        this.props.applyFilter({sort: event.target.value});
+        this.props.applySort(event.target.value);
     }
 
     /**
@@ -23,14 +23,14 @@ class RepoListFilter extends React.Component {
      * @param event
      */
     handleMinimumChange( event ) {
+
         if ( this.debounce ) {
             clearTimeout(this.debounce);
         }
-        let name = event.target.name;
         let value = event.target.value;
 
         this.debounce = setTimeout(() => {
-            this.props.applyFilter({[name]: value})
+            this.props.applyFilter(value)
         }, 500);
 
     }
@@ -54,6 +54,28 @@ class RepoListFilter extends React.Component {
     }
 
     /**
+     * Invoked before rendering when new props or state are being received. This method is not called for the initial
+     * render or when forceUpdate is used. Use this as an opportunity to return false when you're certain that the
+     * transition to the new props and state will not require a component update.
+     */
+    shouldComponentUpdate( nextProps, nextState ) {
+
+        return this.props.sort !== nextProps.sort
+            || this.props.stars !== nextProps.stars;
+    }
+
+    /**
+     * http://facebook.github.io/react/docs/events.html#syntheticevent
+     * Your event handlers will be passed instances of SyntheticEvent, a cross-browser wrapper around the browser's
+     * native event. It has the same interface as the browser's native event, including stopPropagation() and
+     * preventDefault(), except the events work identically across all browsers.
+     * @param event
+     */
+    onSubmit( event ) {
+        event.preventDefault();
+    }
+
+    /**
      * http://facebook.github.io/react/docs/component-specs.html
      * The render() method is required.
      When called, it should examine this.props and this.state and return a single child component.
@@ -72,33 +94,33 @@ class RepoListFilter extends React.Component {
         return (
             <div {...this.props}>
                 <h1>Refine search</h1>
-                <form className="form">
+                <form className="form" onSubmit={this.onSubmit.bind(this)}>
                     <legend>Sort</legend>
                     <div className="radio">
                         <label>
-                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-stars" value="stars" checked={this.props.filters.sort === "stars"}/>
+                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-stars" value="stars" checked={this.props.sort === "stars"}/>
                             Number of Stars
                         </label>
                     </div>
                     <div className="radio">
                         <label>
-                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-forks" value="forks" checked={this.props.filters.sort === "forks"}/>
+                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-forks" value="forks" checked={this.props.sort === "forks"}/>
                             Number of Forks
                         </label>
                     </div>
                     <div className="radio">
                         <label>
-                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-updated" value="updated" checked={this.props.filters.sort === "updated"}/>
+                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-updated" value="updated" checked={this.props.sort === "updated"}/>
                             Most recently Updated
                         </label>
                     </div>
                     <legend>Filter</legend>
                     <div className="form-group">
                         <label>Minimum Stars</label>
-                        <input type="number" name="stars" onChange={this.handleMinimumChange.bind(this)} defaultValue={this.props.filters.stars} min="0"/>
+                        <input className="form-control" type="number" name="stars" onChange={this.handleMinimumChange.bind(this)} defaultValue={this.props.stars} min="0"/>
                     </div>
+                    <button className="btn btn-primary" onClick={this.clearFilters.bind(this)}>Reset</button>
                 </form>
-                <button className="btn btn-primary" onClick={this.clearFilters.bind(this)}>Reset</button>
             </div>
         );
     }
@@ -109,14 +131,22 @@ class RepoListFilter extends React.Component {
  * @type {{filters: *}}
  */
 RepoListFilter.propTypes = {
-    filters: React.PropTypes.object,
+    stars: React.PropTypes.string,
+    sort: React.PropTypes.string,
     applyFilter: React.PropTypes.func,
-    clearFilters: React.PropTypes.func
+    clearFilters: React.PropTypes.func,
+    applySort: React.PropTypes.func
 };
 /**
  * Define the default props for this component
  * @type {{filters: {sort: string}}}
  */
-RepoListFilter.defaultProps = {filters: {sort: "stars"}, applyFilter: noop, clearFilters: noop};
+RepoListFilter.defaultProps = {
+    sort: "stars",
+    stars: "500",
+    applySort: noop,
+    applyFilter: noop,
+    clearFilters: noop
+};
 
 

@@ -12,14 +12,16 @@ export default
 class RepoListContainer extends React.Component {
     constructor( props ) {
         super(props);
-        this.state = {repos: props.repos, filters: props.filters};
+        this.state = {repos: props.repos, sort: props.sort, stars: props.stars};
     }
 
     /**
      * Clear the current filters
      */
     clearFilters() {
-        this.setState({filters: RepoListContainer.defaultProps.filters}, this.getData);
+        let sort = RepoListContainer.defaultProps.sort;
+        let stars = RepoListContainer.defaultProps.stars;
+        this.setState({sort: sort, stars: stars}, this.getData);
     }
 
     /**
@@ -27,7 +29,15 @@ class RepoListContainer extends React.Component {
      * @param filter
      */
     applyFilter( filter ) {
-        this.setState({filters: filter}, this.getData);
+        this.setState({stars: filter}, this.getData);
+    }
+
+    /**
+     * Apply a sort to the current state
+     * @param sort value
+     */
+    applySort( sort ) {
+        this.setState({sort: sort}, this.getData);
     }
 
     /**
@@ -35,11 +45,14 @@ class RepoListContainer extends React.Component {
      */
     getData() {
         request.get(APP_CONSTANTS.API_BASE + "search/repositories")
-            .query({q: `react ${'stars:>=' + this.state.filters.stars}`})
-            .query({sort: this.state.filters.sort})
+            .query({q: `react ${'stars:>=' + this.state.stars}`})
+            .query({sort: this.state.sort})
             .end(( err, resp ) => {
+
                 if ( !err ) {
-                    this.setState({repos: resp.body.items});
+                    this.setState({repos: resp.body.items, error: null});
+                } else {
+                    this.setState({error: resp.body.message});
                 }
             });
     }
@@ -71,9 +84,14 @@ class RepoListContainer extends React.Component {
      * @returns {XML}
      */
     render() {
+        let error;
+        if ( this.state.error ) {
+            error = <div className="col-xs-9 col-offset-3 alert alert-danger">{this.state.error}</div>
+        }
         return (
             <div {...this.props}>
-                <RepoListFilter className="col-xs-3" filters={this.state.filters} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
+                <RepoListFilter className="col-xs-3" stars={this.state.stars} sort={this.state.sort} applySort={this.applySort.bind(this)} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
+                 {error}
                 <RepoList repos={this.state.repos} className="col-xs-9" />
             </div>
         );
@@ -88,5 +106,5 @@ RepoListContainer.propTypes = {repos: React.PropTypes.array, filters: React.Prop
  * Define the default props for this component
  * @type {{filters: {sort: string}}}
  */
-RepoListContainer.defaultProps = {repos: [], filters: {sort: "stars", stars: "500"}};
+RepoListContainer.defaultProps = {repos: [], sort: "stars", stars: "500"};
 

@@ -18,7 +18,26 @@ class RepoList extends React.Component {
      not trigger an additional render.
      */
     componentWillReceiveProps( nextProps ) {
-        this.setState({previousCount: this.props.repos.length});
+        let trendingUp = {};
+        let trendingDown = {};
+
+        //this is not efficient, but an example
+        nextProps.repos.forEach(( newRepo ) => {
+            let oldRepo = this.props.repos.filter(r => {
+                return r.id === newRepo.id;
+            })[0];
+            if ( oldRepo ) {
+                if ( newRepo.stargazers_count > oldRepo.stargazers_count ) {
+                    trendingUp[newRepo.id] = newRepo;
+                } else if ( newRepo.stargazers_count < oldRepo.stargazers_count ) {
+                    trendingDown[newRepo.id] = newRepo;
+                }
+            }
+
+        });
+
+        this.setState({trendingUp: trendingUp, trendingDown: trendingDown});
+
     }
 
     /**
@@ -45,6 +64,19 @@ class RepoList extends React.Component {
             let mediaObjectStyle = {
                 maxWidth: "64px"
             };
+            let trendingDown, trendingUp;
+            if ( this.state.trendingDown[r.id] ) {
+                let trendingDownStyle = {
+                    color: "#9494FF"
+                };
+                trendingDown = <span style={trendingDownStyle} className="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+            }
+            if ( this.state.trendingUp[r.id] ) {
+                let trendingUpStyle = {
+                    color: "#FF8B60"
+                };
+                trendingUp = <span style={trendingUpStyle} className="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+            }
             return <li className="media" key={idx}>
                 <div className="media-left">
                     <a href={r.html_url}>
@@ -57,6 +89,8 @@ class RepoList extends React.Component {
                             <span className="label label-info">
                                 <span className="glyphicon glyphicon-star" aria-hidden="true">{r.stargazers_count}</span>
                             </span>
+                        {trendingDown}
+                        {trendingUp}
                         </small>
                     </h4>
                         {r.description}
