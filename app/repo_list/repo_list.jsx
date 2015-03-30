@@ -1,5 +1,6 @@
 'use strict';
 import React from "react";
+import RepoListItem from "./repo_list_item"
 
 /**
  * The RepoList is a list of GitHub repositories
@@ -23,9 +24,11 @@ class RepoList extends React.Component {
 
         //this is not efficient, but an example
         nextProps.repos.forEach(( newRepo ) => {
+            //find the matching old repo
             let oldRepo = this.props.repos.filter(r => {
                 return r.id === newRepo.id;
             })[0];
+            //if found, compare the current star count against the old count
             if ( oldRepo ) {
                 if ( newRepo.stargazers_count > oldRepo.stargazers_count ) {
                     trendingUp[newRepo.id] = newRepo;
@@ -35,7 +38,7 @@ class RepoList extends React.Component {
             }
 
         });
-
+        //update our state trendingUp and trendingDown
         this.setState({trendingUp: trendingUp, trendingDown: trendingDown});
 
     }
@@ -58,44 +61,12 @@ class RepoList extends React.Component {
     render() {
         //create our repo elements
         let repos = this.props.repos.map(( r, idx ) => {
+            //are we trending in a direction?
+            let trendingUp = this.state.trendingUp[r.id] !== undefined
+                , trendingDown = this.state.trendingDown[r.id] !== undefined;
 
-            //Inline styles are defined with object literals in ReactJS
-            //https://facebook.github.io/react/tips/inline-styles.html
-            let mediaObjectStyle = {
-                maxWidth: "64px"
-            };
-            let trendingDown, trendingUp;
-            if ( this.state.trendingDown[r.id] ) {
-                let trendingDownStyle = {
-                    color: "#9494FF"
-                };
-                trendingDown = <span style={trendingDownStyle} className="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-            }
-            if ( this.state.trendingUp[r.id] ) {
-                let trendingUpStyle = {
-                    color: "#FF8B60"
-                };
-                trendingUp = <span style={trendingUpStyle} className="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-            }
-            return <li className="media" key={idx}>
-                <div className="media-left">
-                    <a href={r.html_url}>
-                        <img className="media-object" style={mediaObjectStyle} src={r.owner.avatar_url} alt="avatar"/>
-                    </a>
-                </div>
-                <div className="media-body">
-                    <h4 className="media-heading">{r.name} &nbsp;
-                        <small>
-                            <span className="label label-info">
-                                <span className="glyphicon glyphicon-star" aria-hidden="true">{r.stargazers_count}</span>
-                            </span>
-                        {trendingDown}
-                        {trendingUp}
-                        </small>
-                    </h4>
-                        {r.description}
-                </div>
-            </li>
+            return <RepoListItem key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
+
         });
 
         return (

@@ -23,15 +23,7 @@ class RepoListFilter extends React.Component {
      * @param event
      */
     handleMinimumChange( event ) {
-
-        if ( this.debounce ) {
-            clearTimeout(this.debounce);
-        }
-        let value = event.target.value;
-
-        this.debounce = setTimeout(() => {
-            this.props.applyFilter(value)
-        }, 500);
+        this.props.applyFilter(event.target.value);
 
     }
 
@@ -43,17 +35,7 @@ class RepoListFilter extends React.Component {
     }
 
     /**
-     * Invoked immediately before a component is unmounted from the DOM. Perform any necessary cleanup in this method,
-     * such as invalidating timers or cleaning up any DOM elements that were created in componentDidMount.
-     */
-    componentWillUnmount() {
-        //ensure our debounce method is cleaned up
-        if ( this.debounce ) {
-            clearTimeout(this.debounce);
-        }
-    }
-
-    /**
+     * http://facebook.github.io/react/docs/component-specs.html#updating-shouldcomponentupdate
      * Invoked before rendering when new props or state are being received. This method is not called for the initial
      * render or when forceUpdate is used. Use this as an opportunity to return false when you're certain that the
      * transition to the new props and state will not require a component update.
@@ -117,7 +99,7 @@ class RepoListFilter extends React.Component {
                     <legend>Filter</legend>
                     <div className="form-group">
                         <label>Minimum Stars</label>
-                        <input className="form-control" type="number" name="stars" onChange={this.handleMinimumChange.bind(this)} defaultValue={this.props.stars} min="0"/>
+                        <input className="form-control" type="number" name="stars" onChange={this.handleMinimumChange.bind(this)} value={this.props.stars} min="0"/>
                     </div>
                     <button className="btn btn-primary" onClick={this.clearFilters.bind(this)}>Reset</button>
                 </form>

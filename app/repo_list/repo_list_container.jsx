@@ -12,15 +12,20 @@ export default
 class RepoListContainer extends React.Component {
     constructor( props ) {
         super(props);
-        this.state = {repos: props.repos, sort: props.sort, stars: props.stars};
+
+        this.state = {
+            repos: [],
+            sort: RepoListContainer.defaultState.sort,
+            stars: RepoListContainer.defaultState.stars
+        };
     }
 
     /**
      * Clear the current filters
      */
     clearFilters() {
-        let sort = RepoListContainer.defaultProps.sort;
-        let stars = RepoListContainer.defaultProps.stars;
+        let sort = RepoListContainer.defaultState.sort;
+        let stars = RepoListContainer.defaultState.stars;
         this.setState({sort: sort, stars: stars}, this.getData);
     }
 
@@ -29,7 +34,30 @@ class RepoListContainer extends React.Component {
      * @param filter
      */
     applyFilter( filter ) {
-        this.setState({stars: filter}, this.getData);
+
+        this.setState({stars: filter}, ()=> {
+            //trigger the getData only after a debounce;
+            if ( this.debounce ) {
+                clearTimeout(this.debounce);
+            }
+            this.debounce = setTimeout(() => {
+                this.getData();
+            }, 500);
+
+        });
+
+    }
+
+    /**
+     * http://facebook.github.io/react/docs/component-specs.html#unmounting-componentwillunmount
+     * Invoked immediately before a component is unmounted from the DOM. Perform any necessary cleanup in this method,
+     * such as invalidating timers or cleaning up any DOM elements that were created in componentDidMount.
+     */
+    componentWillUnmount() {
+        //ensure our debounce method is cleaned up
+        if ( this.debounce ) {
+            clearTimeout(this.debounce);
+        }
     }
 
     /**
@@ -86,25 +114,20 @@ class RepoListContainer extends React.Component {
     render() {
         let error;
         if ( this.state.error ) {
-            error = <div className="col-xs-9 col-offset-3 alert alert-danger">{this.state.error}</div>
+            error = <div className="col-sm-9 col-offset-3 alert alert-danger">{this.state.error}</div>
         }
         return (
             <div {...this.props}>
-                <RepoListFilter className="col-xs-3" stars={this.state.stars} sort={this.state.sort} applySort={this.applySort.bind(this)} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
+                <RepoListFilter className="col-sm-3" stars={this.state.stars} sort={this.state.sort} applySort={this.applySort.bind(this)} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
                  {error}
-                <RepoList repos={this.state.repos} className="col-xs-9" />
+                <RepoList repos={this.state.repos} className="col-sm-9" />
             </div>
         );
     }
 }
 /**
- * Define our propTypes
- * @type {{filters: *}}
+ * https://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html
+ * Default state for RepoListContainer. getDefaultState is not available in ES6 React
+ * @type {{stars: string, sort: string}}
  */
-RepoListContainer.propTypes = {repos: React.PropTypes.array, filters: React.PropTypes.object};
-/**
- * Define the default props for this component
- * @type {{filters: {sort: string}}}
- */
-RepoListContainer.defaultProps = {repos: [], sort: "stars", stars: "500"};
-
+RepoListContainer.defaultState = {stars: "500", sort: "stars"};
