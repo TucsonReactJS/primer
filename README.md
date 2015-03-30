@@ -44,7 +44,7 @@ The RepoList is responsible for mapping and rendering a list of [RepoListItem](h
 
 ### repo_list/repo_list_item.jsx
 
-The RepoListItem is responsible for rendering a single repo item. It uses  [TrendingUpArrow](https://github.com/TucsonReactJS/primer/blob/master/app/common/trending_up_arrow.jsx) and [TrendingDownArrow](https://github.com/TucsonReactJS/primer/blob/master/app/common/trending_down_arrow.jsx) components to show trending status. The RepoListItem uses [componentWillUpdate]() and [componentDidUpdate]() to access the raw DOM element and pass it to an animation library. If the previous or upcoming props don't match, then the item will "transition" into the change by sliding out. This a little contrived, but is helpful to visualize the lifecycle method.
+The RepoListItem is responsible for rendering a single repo item. It uses  [TrendingUpArrow](https://github.com/TucsonReactJS/primer/blob/master/app/common/trending_up_arrow.jsx) and [TrendingDownArrow](https://github.com/TucsonReactJS/primer/blob/master/app/common/trending_down_arrow.jsx) components to show trending status. The RepoListItem uses [componentWillUpdate](https://facebook.github.io/react/docs/component-specs.html#updating-componentwillupdate) and [componentDidUpdate](https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate) to access the raw DOM element and pass it to an animation library. If the previous or upcoming props don't match, then the item will "transition" into the change by sliding out. This a little contrived, but is helpful to visualize the lifecycle method.
 
 ### common/trending_up_arrow.jsx
 
