@@ -41,3 +41,15 @@ The RepoListFilter is responsible for taking the users input to change the sort 
 ### repo_list/repo_list.jsx
 
 The RepoList is responsible for mapping and rendering a list of [RepoListItem](https://github.com/TucsonReactJS/primer/blob/master/app/repo_list/repo_list_item.jsx). Additionally, this component uses the [componentWillReceiveProps](http://facebook.github.io/react/docs/component-specs.html#updating-componentwillreceiveprops) lifecycle method to compute whether a particular repo has trended up or down since the last request.
+
+### repo_list/repo_list_item.jsx
+
+The RepoListItem is responsible for rendering a single repo item. It uses  [TrendingUpArrow](https://github.com/TucsonReactJS/primer/blob/master/app/common/trending_up_arrow.jsx) and [TrendingDownArrow](https://github.com/TucsonReactJS/primer/blob/master/app/common/trending_down_arrow.jsx) components to show trending status.
+
+### common/trending_up_arrow.jsx
+
+A simple styled up arrow
+
+### common/trending_down_arrow.jsx
+
+A simple styled down arrow
