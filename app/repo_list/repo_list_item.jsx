@@ -2,7 +2,7 @@
 import React from "react";
 import TrendingDownArrow from "../common/trending_down_arrow"
 import TrendingUpArrow from "../common/trending_up_arrow"
-
+import snabbt from "snabbt.js"
 /**
  * The RepoList is a list of GitHub repositories
  */
@@ -10,6 +10,58 @@ export default
 class RepoListItem extends React.Component {
     constructor( props ) {
         super(props);
+    }
+
+    /**
+     * http://facebook.github.io/react/docs/component-specs.html#unmounting-componentwillunmount
+     * Invoked immediately before a component is unmounted from the DOM. Perform any necessary cleanup in this method,
+     * such as invalidating timers or cleaning up any DOM elements that were created in componentDidMount.
+     */
+    componentWillUnmount() {
+
+        //ensure our animation is cleaned up
+        if ( this.animation ) {
+            this.animation = null;
+        }
+
+    }
+
+    /**
+     * https://facebook.github.io/react/docs/component-specs.html#updating-componentwillupdate
+     * Invoked immediately before rendering when new props or state are being received. This method is not called for
+     * the initial render. Use this as an opportunity to perform preparation before an update occurs.
+     * @param nextProps
+     * @param nextState
+     */
+    componentWillUpdate( nextProps, nextState ) {
+        if ( nextProps.repo.id !== this.props.repo.id ) {
+            let el = React.findDOMNode(this);
+            this.animation = snabbt(el, {
+                position: [5000, 0, 0],
+                duration: 150
+            });
+
+        }
+
+    }
+
+    /**
+     *https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate
+     * Invoked immediately after the component's updates are flushed to the DOM. This method is not called for the
+     * initial render. Use this as an opportunity to operate on the DOM when the component has been updated.
+     * @param prevProps
+     * @param prevState
+     */
+    componentDidUpdate( prevProps, prevState ) {
+
+        if ( prevProps.repo.id !== this.props.repo.id ) {
+            this.animation.snabbt({
+                position: [0, 0, 0],
+                easing: 'easeOut'
+            });
+
+        }
+
     }
 
     /**

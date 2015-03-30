@@ -65,7 +65,7 @@ class RepoList extends React.Component {
             let trendingUp = this.state.trendingUp[r.id] !== undefined
                 , trendingDown = this.state.trendingDown[r.id] !== undefined;
 
-            return <RepoListItem key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
+            return <RepoListItem id={idx} key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
 
         });
 

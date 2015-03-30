@@ -7,7 +7,7 @@ export const APP_CONSTANTS = {
 };
 
 /**
- * A noop function for passing around
+ * A no operation function for passing around
  */
 export const noop = function() {
 
