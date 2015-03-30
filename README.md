@@ -1,5 +1,5 @@
 # primer
-A ReactJS primer repo with focus on idiomatic principles and the component life cycle. This repo contains a simple
+A React primer repo with focus on idiomatic principles and the component life cycle. This repo contains a simple
 React Github search utility built using React current best practices (to the extent of my knowledge). PR's and comments are
 welcome if I get it wrong!
 
