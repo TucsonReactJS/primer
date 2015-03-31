@@ -19,8 +19,8 @@ class RepoList extends React.Component {
      not trigger an additional render.
      */
     componentWillReceiveProps( nextProps ) {
-        let trendingUp = {};
-        let trendingDown = {};
+        const trendingUp = {};
+        const trendingDown = {};
 
         //this is not efficient, but an example
         nextProps.repos.forEach(( newRepo ) => {
@@ -60,7 +60,7 @@ class RepoList extends React.Component {
      */
     render() {
         //create our repo elements
-        let repos = this.props.repos.map(( r, idx ) => {
+        const repos = this.props.repos.map(( r, idx ) => {
             //are we trending in a direction?
             let trendingUp = this.state.trendingUp[r.id] !== undefined
                 , trendingDown = this.state.trendingDown[r.id] !== undefined;

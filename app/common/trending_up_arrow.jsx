@@ -8,7 +8,7 @@ export default
 class TrendingUpArrow extends React.Component {
     render() {
 
-        let trendingUpStyle = {
+        const trendingUpStyle = {
             color: "#FF8B60"
         };
         //render content

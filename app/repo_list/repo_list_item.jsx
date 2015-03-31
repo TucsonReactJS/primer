@@ -35,7 +35,7 @@ class RepoListItem extends React.Component {
      */
     componentWillUpdate( nextProps, nextState ) {
         if ( nextProps.repo.id !== this.props.repo.id ) {
-            let el = React.findDOMNode(this);
+            const el = React.findDOMNode(this);
             this.animation = snabbt(el, {
                 position: [5000, 0, 0],
                 duration: 150
@@ -83,7 +83,7 @@ class RepoListItem extends React.Component {
 
         //Inline styles are defined with object literals in ReactJS
         //https://facebook.github.io/react/tips/inline-styles.html
-        let mediaObjectStyle = {
+        const mediaObjectStyle = {
             maxWidth: "64px"
         };
 

@@ -3,7 +3,7 @@ import React from "react"
 import RepoList from "./repo_list"
 import RepoListFilter from "./repo_list_filter"
 import request from "superagent"
-import {APP_CONSTANTS} from "../constants";
+import {API_BASE} from "../constants";
 
 /**
  * The RepoListContainer wraps the RepoList and provides
@@ -24,8 +24,8 @@ class RepoListContainer extends React.Component {
      * Clear the current filters
      */
     clearFilters() {
-        let sort = RepoListContainer.defaultState.sort;
-        let stars = RepoListContainer.defaultState.stars;
+        const sort = RepoListContainer.defaultState.sort;
+        const stars = RepoListContainer.defaultState.stars;
         this.setState({sort: sort, stars: stars}, this.getData);
     }
 
@@ -72,7 +72,7 @@ class RepoListContainer extends React.Component {
      * Get data from our remote endpoint
      */
     getData() {
-        request.get(APP_CONSTANTS.API_BASE + "search/repositories")
+        request.get(API_BASE + "search/repositories")
             .query({q: `react ${'stars:>=' + this.state.stars}`})
             .query({sort: this.state.sort})
             .end(( err, resp ) => {

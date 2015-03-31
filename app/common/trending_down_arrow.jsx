@@ -8,7 +8,7 @@ export default
 class TrendingDownArrow extends React.Component {
     render() {
 
-        let trendingDownStyle = {
+        const trendingDownStyle = {
             color: "#9494FF"
         };
         //render content

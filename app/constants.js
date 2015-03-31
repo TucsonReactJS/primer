@@ -1,10 +1,8 @@
 /**
- * The application constants
- * @type {{API_BASE: string}}
+ * API base url
+ * @type {string}
  */
-export const APP_CONSTANTS = {
-    API_BASE: "https://api.github.com/"
-};
+export const API_BASE = "https://api.github.com/";
 
 /**
  * A no operation function for passing around
