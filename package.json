@@ -4,7 +4,9 @@
   "description": "A ReactJS primer rpo with focus on idiomatic principles and the component life cycle",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "npm install",
+    "build": "./node_modules/gulp/bin/gulp.js build"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/TucsonReactJS/primer",
   "dependencies": {
     "react": "^0.13.1",
+    "snabbt.js": "^0.5.1",
     "superagent": "^1.1.0",
     "whatwg-fetch": "^0.7.0"
   },
