@@ -4,7 +4,7 @@
 import React from "react";
 import App from "./app";
 
-//put React into the global scope For chrome dev tool support
+//put React into the global scope for chrome dev tool support
 window.React = React;
 //grab the app node
 const mountNode = document.getElementById('app');
