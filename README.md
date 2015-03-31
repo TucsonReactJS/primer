@@ -3,6 +3,9 @@ A React primer repo with focus on idiomatic principles and the component life cy
 React Github search utility built using React current best practices (to the extent of my knowledge). PR's and comments are
 welcome if I get it wrong!
 
+[![Dependencies Status][dependencies-image]][dependencies-url]
+[![devDependency Status][dev-dependencies-image]][dev-dependencies-url]
+
 ## Build
 An idomatic React application will use a build system to transpile JSX into JS for running inside the browser. This
 project uses [gulp](http://gulpjs.com/) and [webpack](http://webpack.github.io/) to accomplish this task.
@@ -53,3 +56,8 @@ A simple styled up arrow
 ### common/trending_down_arrow.jsx
 
 A simple styled down arrow
+
+[dependencies-image]:https://david-dm.org/TucsonReactJS/primer.svg
+[dependencies-url]:https://david-dm.org/TucsonReactJS/primer#info=dependencies
+[dev-dependencies-image]:https://david-dm.org/TucsonReactJS/primer/dev-status.svg
+[dev-dependencies-url]:https://david-dm.org/TucsonReactJS/primer#info=devDependencies
