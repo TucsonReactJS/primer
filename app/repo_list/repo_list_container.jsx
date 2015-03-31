@@ -35,7 +35,7 @@ class RepoListContainer extends React.Component {
      */
     applyFilter( filter ) {
 
-        this.setState({stars: filter}, ()=> {
+        this.setState({stars: filter}, () => {
             //trigger the getData only after a debounce;
             if ( this.debounce ) {
                 clearTimeout(this.debounce);
