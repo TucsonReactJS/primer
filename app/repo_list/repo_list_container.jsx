@@ -3,6 +3,11 @@ import React from "react"
 import RepoList from "./repo_list"
 import RepoListFilter from "./repo_list_filter"
 import request from "superagent"
+
+/*
+* ES6 destructuring assignment
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+*/
 import {API_BASE} from "../constants";
 
 /**
