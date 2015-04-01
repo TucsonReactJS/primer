@@ -118,7 +118,13 @@ class RepoListContainer extends React.Component {
         }
         return (
             <div {...this.props}>
-                <RepoListFilter className="col-sm-3" stars={this.state.stars} sort={this.state.sort} applySort={this.applySort.bind(this)} applyFilter={this.applyFilter.bind(this)} clearFilters={this.clearFilters.bind(this)} />
+                <RepoListFilter 
+                    className="col-sm-3" 
+                    stars={this.state.stars} 
+                    sort={this.state.sort} 
+                    applySort={this.applySort.bind(this)} 
+                    applyFilter={this.applyFilter.bind(this)} 
+                    clearFilters={this.clearFilters.bind(this)} />
                  {error}
                 <RepoList repos={this.state.repos} className="col-sm-9" />
             </div>
