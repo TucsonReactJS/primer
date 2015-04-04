@@ -65,7 +65,8 @@ class RepoList extends React.Component {
             let trendingUp = this.state.trendingUp[r.id] !== undefined
                 , trendingDown = this.state.trendingDown[r.id] !== undefined;
 
-            return <RepoListItem id={idx} key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
+            //using the IDX as the key is important here, as we are tracking by their position in the set
+            return <RepoListItem key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
 
         });
 
