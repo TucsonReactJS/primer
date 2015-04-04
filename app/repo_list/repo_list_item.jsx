@@ -8,6 +8,32 @@ import snabbt from "snabbt.js"
  */
 export default
 class RepoListItem extends React.Component {
+
+    /**
+     * RepoListItem prop types
+     * @type {{repo: *, trendingUp: *, trendingDown: *}}
+     */
+    static propTypes = {
+        repo: React.PropTypes.object,
+        trendingUp: React.PropTypes.bool,
+        trendingDown: React.PropTypes.bool
+    };
+    /**
+     * Default props for the RepoListItem
+     * @type {{repo: {description: string, name: string, html_url: string, avatar_url: string, stargazers_count: number}, trendingUp: boolean, trendingDown: boolean}}
+     */
+    static defaultProps = {
+        repo: {
+            description: "",
+            name: "",
+            html_url: "",
+            avatar_url: "",
+            stargazers_count: 0
+        },
+        trendingUp: false,
+        trendingDown: false
+    };
+
     constructor( props ) {
         super(props);
     }
@@ -99,14 +125,16 @@ class RepoListItem extends React.Component {
         return (<li className="media">
             <div className="media-left">
                 <a href={this.props.repo.html_url}>
-                    <img className="media-object" style={mediaObjectStyle} src={this.props.repo.owner.avatar_url} alt="avatar"/>
+                    <img className="media-object" style={mediaObjectStyle} src={this.props.repo.owner.avatar_url}
+                         alt="avatar"/>
                 </a>
             </div>
             <div className="media-body">
                 <h4 className="media-heading">{this.props.repo.name} &nbsp;
                     <small>
                         <span className="label label-info">
-                            <span className="glyphicon glyphicon-star" aria-hidden="true">{this.props.repo.stargazers_count}</span>
+                            <span className="glyphicon glyphicon-star"
+                                  aria-hidden="true">{this.props.repo.stargazers_count}</span>
                         </span>
                         {trending}
                     </small>
@@ -118,27 +146,4 @@ class RepoListItem extends React.Component {
     }
 
 }
-/**
- * Define our propTypes
- * @type {{filters: *}}
- */
-RepoListItem.propTypes = {
-    repo: React.PropTypes.object,
-    trendingUp: React.PropTypes.bool,
-    trendingDown: React.PropTypes.bool
-};
-/**
- * Define the default props for this component
- * @type {{filters: {sort: string}}}
- */
-RepoListItem.defaultProps = {
-    repo: {
-        description: "",
-        name: "",
-        html_url: "",
-        avatar_url: "",
-        stargazers_count: 0
-    },
-    trendingUp: false,
-    trendingDown: false
-};
+

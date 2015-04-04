@@ -26,8 +26,7 @@
   "dependencies": {
     "react": "^0.13.1",
     "snabbt.js": "^0.5.1",
-    "superagent": "^1.1.0",
-    "whatwg-fetch": "^0.7.0"
+    "superagent": "^1.1.0"
   },
   "devDependencies": {
     "babel": "^4.7.16",
