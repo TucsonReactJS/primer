@@ -13,8 +13,8 @@ project type
 * Clone the repo ```git clone https://github.com/TucsonReactJS/primer.git```
 * Install gulp globally ```npm install -g gulp```
 * change into the primer directory ```cd primer```
-* install dependencies ```npm install``
-* build ```gulp```
+* install dependencies ```npm install```
+* build and watch ```gulp```
 
 ## ES6
 React 0.13 introduces the ability to write your React application using standard ES6 syntax. 
