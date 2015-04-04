@@ -12,6 +12,7 @@ gulp.task('copy', function() {
     var html = gulp.src("./app/index.html").pipe(gulp.dest("dist/"))
         , images = gulp.src("./app/images/**/*.*").pipe(gulp.dest("dist/images"));
 });
+
 /**
  * The main step is 'pack' this step takes our 'client.js' file, and builds it using Webpack, the babel-loader plugin to
  * transpile ES6 and outputs it to the dist directory
@@ -40,6 +41,7 @@ gulp.task('pack', function() {
  * The default task is build
  */
 gulp.task("default", ["build"]);
+
 /**
  * Define our build task
  */

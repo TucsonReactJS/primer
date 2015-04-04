@@ -8,7 +8,13 @@ welcome if I get it wrong!
 
 ## Build
 An idomatic React application will use a build system to transpile JSX into JS for running inside the browser. This
-project uses [gulp](http://gulpjs.com/) and [webpack](http://webpack.github.io/) to accomplish this task.
+project uses [gulp](http://gulpjs.com/) and [webpack](http://webpack.github.io/) to accomplish this task. To build this
+project type
+* Clone the repo ```git clone https://github.com/TucsonReactJS/primer.git```
+* Install gulp globally ```npm install -g gulp```
+* change into the primer directory ```cd primer```
+* install dependencies ```npm install``
+* build ```gulp```
 
 ## ES6
 React 0.13 introduces the ability to write your React application using standard ES6 syntax. 
