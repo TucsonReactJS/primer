@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import {noop} from "../constants";
+import {noop,SORT_FORKS,SORT_STARS,SORT_UPDATED} from "../constants";
 
 /**
  * The RepoListFilter provides a set of configurable filters to act select
@@ -80,19 +80,19 @@ class RepoListFilter extends React.Component {
                     <legend>Sort</legend>
                     <div className="radio">
                         <label>
-                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-stars" value="stars" checked={this.props.sort === "stars"}/>
+                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-stars" value={SORT_STARS} checked={this.props.sort === SORT_STARS}/>
                             Number of Stars
                         </label>
                     </div>
                     <div className="radio">
                         <label>
-                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-forks" value="forks" checked={this.props.sort === "forks"}/>
+                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-forks" value={SORT_FORKS} checked={this.props.sort === SORT_FORKS}/>
                             Number of Forks
                         </label>
                     </div>
                     <div className="radio">
                         <label>
-                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-updated" value="updated" checked={this.props.sort === "updated"}/>
+                            <input type="radio" onChange={this.handleSortChange.bind(this)} name="sort" id="sort-updated" value={SORT_UPDATED} checked={this.props.sort === SORT_UPDATED}/>
                             Most recently Updated
                         </label>
                     </div>

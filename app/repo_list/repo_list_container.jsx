@@ -3,12 +3,11 @@ import React from "react"
 import RepoList from "./repo_list"
 import RepoListFilter from "./repo_list_filter"
 import request from "superagent"
-
 /*
 * ES6 destructuring assignment
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 */
-import {API_BASE} from "../constants";
+import {API_BASE,SORT_STARS,SORT_FORKS,SORT_UPDATED} from "../constants";
 
 /**
  * The RepoListContainer wraps the RepoList and provides
@@ -78,7 +77,7 @@ class RepoListContainer extends React.Component {
      */
     getData() {
         request.get(API_BASE + "search/repositories")
-            .query({q: `react ${'stars:>=' + this.state.stars}`})
+            .query({q: `react ${SORT_STARS}:>=${this.state.stars}`})
             .query({sort: this.state.sort})
             .end(( err, resp ) => {
 
@@ -141,4 +140,4 @@ class RepoListContainer extends React.Component {
  * Default state for RepoListContainer. getDefaultState is not available in ES6 React
  * @type {{stars: string, sort: string}}
  */
-RepoListContainer.defaultState = {stars: "500", sort: "stars"};
+RepoListContainer.defaultState = {stars: "500", sort: SORT_STARS};

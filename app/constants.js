@@ -10,3 +10,19 @@ export const API_BASE = "https://api.github.com/";
 export const noop = function() {
 
 };
+
+/**
+ * Sort by stars
+ * @type {string}
+ */
+export const SORT_STARS = 'stars';
+/**
+ * Sort by updated
+ * @type {string}
+ */
+export const SORT_UPDATED = 'updated';
+/**
+ * Sort by forks
+ * @type {string}
+ */
+export const SORT_FORKS = 'forks';
