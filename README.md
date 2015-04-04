@@ -14,7 +14,7 @@ project type
 * Install gulp globally ```npm install -g gulp```
 * change into the primer directory ```cd primer```
 * install dependencies ```npm install```
-* build and watch ```gulp```
+* build and watch using browsersync ```gulp```
 
 ## ES6
 React 0.13 introduces the ability to write your React application using standard ES6 syntax. 
