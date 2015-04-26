@@ -1,4 +1,4 @@
-const test = require('tape');
+var test = require('tape');
 
 test('should render a styled down arrow', function(t){
     'use strict';
@@ -21,7 +21,7 @@ test('should render a styled down arrow', function(t){
      *           aria-hidden="true">
      *       </span>);
     */
-    const TrendingDownArrow = require('../../build/js/common/trending_down_arrow.js');
+    var TrendingDownArrow = require('../../../build/js/common/trending_down_arrow.js');
     
     /**
     * TrendingDownArrow.prototype.render()
@@ -49,18 +49,18 @@ test('should render a styled down arrow', function(t){
             "aria-hidden":"true" 
         }}}"
     */
-    const TrendingDownArrowRendered = TrendingDownArrow.prototype.render();
+    var TrendingDownArrowRendered = TrendingDownArrow.prototype.render();
     
     
-    const React = require('react/addons');
-    const TestUtils = React.addons.TestUtils;
+    var React = require('react/addons');
+    var TestUtils = React.addons.TestUtils;
     
     /**
      * Render a component into a detached DOM node in the document. This function requires a DOM.
      * https://facebook.github.io/react/docs/test-utils.html#renderintodocument
      */
     
-    const TrendingDownArrowNode =  TestUtils.renderIntoDocument(TrendingDownArrowRendered);
+    var TrendingDownArrowNode =  TestUtils.renderIntoDocument(TrendingDownArrowRendered);
     
     /**
      * If this component has been mounted into the DOM,
@@ -71,7 +71,7 @@ test('should render a styled down arrow', function(t){
      * 
      * https://facebook.github.io/react/docs/top-level-api.html#react.finddomnode
      */
-    const whatWasMounted = React.findDOMNode(TrendingDownArrowNode);
+    var whatWasMounted = React.findDOMNode(TrendingDownArrowNode);
         
     
     //Did it render as a span?

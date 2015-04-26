@@ -4,7 +4,8 @@
   "description": "A ReactJS primer rpo with focus on idiomatic principles and the component life cycle",
   "main": "index.js",
   "scripts": {
-    "test": "zuul --local -- test/**/*.js",
+    "pretest":"./node_modules/gulp/bin/gulp.js transpile",
+    "test": "zuul --local 8020 -- test/tape/**/*.js",
     "prebuild": "npm install",
     "build": "./node_modules/gulp/bin/gulp.js build"
   },
