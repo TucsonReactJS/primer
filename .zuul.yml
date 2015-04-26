@@ -1,0 +1,8 @@
+ui: tape
+browsers:
+  - name: chrome
+    version: 39
+    platform: Mac 10.10
+  - name: firefox
+    version: 34..latest
+    platform: Mac 10.10

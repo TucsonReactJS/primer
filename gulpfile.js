@@ -3,10 +3,19 @@
  * This repo uses a very basic gulp + webpack + babel build to write React with ES6, and build it for the browser
  * @type {Gulp|exports}
  */
-var gulp          = require('gulp')
+const gulp          = require('gulp')
     , gwebpack    = require('gulp-webpack')
     , browserSync = require('browser-sync')
-    , reload      = browserSync.reload;
+    , reload      = browserSync.reload
+    , del = require('del')
+    , $ = require('gulp-load-plugins')({ pattern: ['gulp-*'] });
+
+/**
+ * A simple task to clean any build products
+ */
+gulp.task('clean', function(cb) {
+  del(['build'], cb);
+});
 
 /**
  * A simple task to copy our HTML file and images to the dist directory
@@ -38,6 +47,16 @@ gulp.task('pack', function() {
             }
         }))
         .pipe(gulp.dest('dist/'));
+});
+
+/**
+ * Transpile ES6 & JSX to ES5 so unit testing tools can import the files
+ */
+
+gulp.task('transpile',['clean'], function () {
+    return gulp.src(['app/**/*.js','app/**/*.jsx'])
+        .pipe($.babel())
+        .pipe(gulp.dest('build/js'));
 });
 
 /**
