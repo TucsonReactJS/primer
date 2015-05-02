@@ -1,6 +1,6 @@
 var test = require('tape');
 
-test('Renders a styled down arrow', function(t){
+test('Renders a styled up arrow', function(t){
     'use strict';
     
     /**
@@ -17,39 +17,13 @@ test('Renders a styled down arrow', function(t){
      * (
      *       <span 
      *           style={trendingDownStyle} 
-     *           className="glyphicon glyphicon-arrow-down"
+     *           className="glyphicon glyphicon-arrow-up"
      *           aria-hidden="true">
      *       </span>);
     */
-    var TrendingDownArrow = require('../../../build/js/common/trending_down_arrow.js');
+    var TrendingUpArrow = require('../../../build/js/common/trending_up_arrow.js');
     
-    /**
-    * TrendingDownArrow.prototype.render()
-    * will return a React.Element
-    * which looks like this
-    * {
-        "type":"span",
-        "key":null,
-        "ref":null,
-        "_owner":null,
-        "_context":{},
-        "_store":{
-            "props":{
-                "style":{
-                    "color":"#9494FF"
-                },
-               "className":"glyphicon glyphicon-arrow-down",
-               "aria-hidden":"true"
-        },
-        "originalProps":{
-            "style":{
-                "color":"#9494FF"
-            },
-            "className":"glyphicon glyphicon-arrow-down",
-            "aria-hidden":"true" 
-        }}}"
-    */
-    var TrendingDownArrowRendered = TrendingDownArrow.prototype.render();
+    var TrendingUpArrowRendered = TrendingUpArrow.prototype.render();
     
     
     var React = require('react/addons');
@@ -60,7 +34,7 @@ test('Renders a styled down arrow', function(t){
      * https://facebook.github.io/react/docs/test-utils.html#renderintodocument
      */
     
-    var TrendingDownArrowNode =  TestUtils.renderIntoDocument(TrendingDownArrowRendered);
+    var TrendingUpArrowNode =  TestUtils.renderIntoDocument(TrendingUpArrowRendered);
     
     /**
      * If this component has been mounted into the DOM,
@@ -71,7 +45,7 @@ test('Renders a styled down arrow', function(t){
      * 
      * https://facebook.github.io/react/docs/top-level-api.html#react.finddomnode
      */
-    var whatWasMounted = React.findDOMNode(TrendingDownArrowNode);
+    var whatWasMounted = React.findDOMNode(TrendingUpArrowNode);
         
     
     //Did it render as a span?

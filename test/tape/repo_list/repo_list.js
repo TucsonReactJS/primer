@@ -1,6 +1,6 @@
 var test = require('tape');
 
-test('Renders a repo list item', function(t){
+test('Renders a repo list', function(t){
     /**
      * Declare that n assertions should be run. 
      * t.end() will be called automatically after the nth assertion.
@@ -11,23 +11,13 @@ test('Renders a repo list item', function(t){
      */
     t.plan(1);
     
-    var RepoListItem = require('../../../build/js/repo_list/repo_list_item.js');
-    var RepoListItemComponent = new RepoListItem({
-                                              repo: {
-                                                  description: "",
-                                                  name: "",
-                                                  html_url: "",
-                                                  avatar_url: "",
-                                                  stargazers_count: 0,
-                                                  owner : {
-                                                    avatar_url:""
-                                                  }
-                                              },
-                                              trendingUp: false,
-                                              trendingDown: false
+    var RepoList = require('../../../build/js/repo_list/repo_list.js');
+    var constants = require('../../../build/js/constants.js');
+    var RepoListComponent = new RepoList({
+                                              repos:[]
                                           });
     
-    var RepoListItemRendered = RepoListItemComponent.render();
+    var RepoListRendered = RepoListComponent.render();
     
     var React = require('react/addons');
     var TestUtils = React.addons.TestUtils;
@@ -37,7 +27,7 @@ test('Renders a repo list item', function(t){
      * https://facebook.github.io/react/docs/test-utils.html#renderintodocument
      */
     
-     var RepoListItemNode =  TestUtils.renderIntoDocument(RepoListItemRendered);
+     var RepoListNode =  TestUtils.renderIntoDocument(RepoListRendered);
     
     /**
      * If this component has been mounted into the DOM,
@@ -49,10 +39,10 @@ test('Renders a repo list item', function(t){
      * https://facebook.github.io/react/docs/top-level-api.html#react.finddomnode
      */
     
-     var whatWasMounted = React.findDOMNode(RepoListItemNode);
+     var whatWasMounted = React.findDOMNode(RepoListNode);
         
     
     //Did it render as a span?
-    t.equals('LI', whatWasMounted.tagName);
+    t.equals('DIV', whatWasMounted.tagName);
     
 });
