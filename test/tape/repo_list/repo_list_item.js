@@ -35,6 +35,8 @@ test('Renders a repo list item', function(t){
     /**
      * Render a component into a detached DOM node in the document. This function requires a DOM.
      * https://facebook.github.io/react/docs/test-utils.html#renderintodocument
+     * 
+     * This returns an object of type ReactComponent tree
      */
     
      var RepoListItemNode =  TestUtils.renderIntoDocument(RepoListItemRendered);
