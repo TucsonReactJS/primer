@@ -6,6 +6,9 @@ build/
 bower_components
 node_modules
 
+#VSCode
+.settings/
+
 # Intellij
 .idea/
 *.iml
