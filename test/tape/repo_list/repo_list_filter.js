@@ -9,7 +9,7 @@ test('Renders a repo list filter', function(t){
      * 
      * https://github.com/substack/tape#tplann
      */
-    t.plan(10);
+    t.plan(11);
 
     var RepoListFilter = require('../../../build/js/repo_list/repo_list_filter.js');
     var constants = require('../../../build/js/constants.js');
@@ -165,5 +165,12 @@ test('Renders a repo list filter', function(t){
 
     //var justOneKindOfComponent = TestUtils.findRenderedComponentWithType(ReactComponent tree, function componentClass)
 
+    //Simulate that the minimum number of stars has changed to 2500
+    //Except it doesn't ever seem to work for anyone
+    React.findDOMNode(formControl).value = '2500';
+    TestUtils.Simulate.change(formControl);
+
+    formControl = TestUtils.findRenderedDOMComponentWithClass(RepoListFilterNode,'form-control');
+    t.equal(RepoListFilterNode.props.stars,'2500', 'value of stars property should change');
 
 });
