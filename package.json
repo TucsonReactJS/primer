@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A ReactJS primer rpo with focus on idiomatic principles and the component life cycle",
   "main": "index.js",
+  "engines": {
+    "node": ">= 11.3"
+  },
   "scripts": {
     "pretest-web": "./node_modules/gulp/bin/gulp.js transpile",
     "pretest-headless": "./node_modules/gulp/bin/gulp.js transpile",
@@ -27,6 +30,8 @@
   },
   "homepage": "https://github.com/TucsonReactJS/primer",
   "dependencies": {
+    "fluxible": "^0.4.8",
+    "koa": "^0.20.0",
     "react": "^0.13.2",
     "snabbt.js": "^0.5.1",
     "superagent": "^1.2.0"

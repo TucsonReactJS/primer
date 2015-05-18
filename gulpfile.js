@@ -76,7 +76,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch(['app/**/*.jsx', 'app/**/*.js'], ['pack', 'copy']);
 
     //watch for static asset changes
-    gulp.watch(['app/index.html', 'app/assets/images/**/*'], ['copy']);
+    gulp.watch(['app/assets/images/**/*'], ['copy']);
 
     var reloading;
 

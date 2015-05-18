@@ -6,7 +6,7 @@ import RepoListContainer from "./repo_list/repo_list_container"
  * The app class represents our top level component
  */
 export default
-class App extends React.Component {
+class Application extends React.Component {
     constructor( props ) {
         super(props);
         this.state = {isMobile: false};
