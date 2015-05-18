@@ -1,22 +1,6 @@
-'use strict';
-let React = require('react');
-let FluxibleMixin = require('fluxible').FluxibleMixin;
-
-let Home = React.createClass({
-    mixins: [FluxibleMixin],
-    getInitialState() {
-        return {};
-    },
+import React from "react/addons"
+export default class Home extends React.component {
     render() {
-
-
-        //render content
-        return (
-            <div>
-
-            </div>
-        );
+        <div></div>
     }
-});
-
-module.exports = Home;
+}
