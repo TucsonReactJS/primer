@@ -1,6 +1,14 @@
 import React from "react/addons"
-export default class Home extends React.component {
+import RepoListContainer from "./repo_list/repo_list_container"
+
+export default class Home extends React.Component {
     render() {
-        <div></div>
+        return (
+            <div className="container-fluid">
+                <div className="row">
+                    <RepoListContainer className="col-md-12"/>
+                </div>
+            </div>
+        );
     }
 }

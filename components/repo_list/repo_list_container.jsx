@@ -7,7 +7,7 @@ import request from "superagent"
 * ES6 destructuring assignment
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 */
-import {API_BASE,SORT_STARS,SORT_FORKS,SORT_UPDATED} from "../constants";
+import {API_BASE,SORT_STARS,SORT_FORKS,SORT_UPDATED} from "../../constants";
 
 /**
  * The RepoListContainer wraps the RepoList and provides

@@ -3,6 +3,7 @@ import React from "react";
 import TrendingDownArrow from "../common/trending_down_arrow"
 import TrendingUpArrow from "../common/trending_up_arrow"
 import snabbt from "snabbt.js"
+
 /**
  * The RepoList is a list of GitHub repositories
  */

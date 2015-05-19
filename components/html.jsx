@@ -1,5 +1,5 @@
 import React from "react"
-export default class Html extends React.component {
+export default class Html extends React.Component {
     render() {
         //render content
         return (
@@ -7,7 +7,6 @@ export default class Html extends React.component {
             <head lang="en">
                 <meta charset="UTF-8"></meta>
                 <title>ReactJS: Github Repos</title>
-                <!-- Favicons -->
                 <link rel="apple-touch-icon" sizes="57x57" href="images/apple-touch-icon-57x57.png"></link>
                 <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch-icon-60x60.png"></link>
                 <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"></link>
@@ -31,13 +30,12 @@ export default class Html extends React.component {
                 <meta name="apple-mobile-web-app-status-bar-style" content="black"></meta>
                 <meta name="viewport"
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"></meta>
-                <!-- CSS -->
                 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
             </head>
             <body>
-                <div id="app" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>
-                <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
-                <script src="/public/js/client.js" defer></script>
+            <div id="app" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>
+            <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
+            <script src="/public/js/client.js" defer></script>
             </body>
             </html>
         );

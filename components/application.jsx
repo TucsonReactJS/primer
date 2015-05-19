@@ -1,15 +1,24 @@
 'use strict';
 import React from "react"
-import RepoListContainer from "./repo_list/repo_list_container"
+import ApplicationStore from '../stores/application_store';
+import {connectToStores, provideContext} from 'fluxible/addons';
+import {handleHistory} from 'fluxible-router';
 
 /**
  * The app class represents our top level component
  */
-export default
 class Application extends React.Component {
-    constructor( props ) {
-        super(props);
+    constructor( props, context ) {
+        super(props, context);
         this.state = {isMobile: false};
+    }
+
+    componentDidUpdate( prevProps ) {
+        let newProps = this.props;
+        if ( newProps.ApplicationStore.pageTitle === prevProps.ApplicationStore.pageTitle ) {
+            return;
+        }
+        document.title = newProps.ApplicationStore.pageTitle;
     }
 
     /**
@@ -55,14 +64,35 @@ class Application extends React.Component {
      components easier to think about.
      * @returns {XML}
      */
-    render() {
-        return (
-            <div className="container-fluid">
-                <div className="row">
-                    <RepoListContainer className="col-md-12"/>
+
+        render() {
+            var Handler = this.props.currentRoute.get('handler');
+            //render content
+            return (
+                <div>
+                    <Handler />
                 </div>
-            </div>
-        );
-    }
+            );
+        }
+
+
+
 }
+
+Application.contextTypes = {
+    getStore: React.PropTypes.func,
+    executeAction: React.PropTypes.func
+};
+
+Application = connectToStores(Application, [ApplicationStore], function (stores, props) {
+    return {
+        ApplicationStore: stores.ApplicationStore.getState()
+    };
+});
+
+Application = handleHistory(Application, {enableScroll: false});
+
+Application = provideContext(Application);
+
+export default Application;
 

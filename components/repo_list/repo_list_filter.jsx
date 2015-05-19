@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import {noop,SORT_FORKS,SORT_STARS,SORT_UPDATED} from "../constants";
+import {noop,SORT_FORKS,SORT_STARS,SORT_UPDATED} from "../../constants";
 
 /**
  * The RepoListFilter provides a set of configurable filters to act select

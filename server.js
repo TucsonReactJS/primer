@@ -1,4 +1,5 @@
 require('node-jsx').install({extension: '.jsx'});
+require("babel/register");
 var koa = require('koa'),
     Router = require('koa-router'),
     React = require('react'),
@@ -6,7 +7,8 @@ var koa = require('koa'),
     mount = require('koa-mount'),
     thunkify = require('thunkify-wrap'),
     stateHelper = require("./state/stateHelper"),
-    navigateAction = require('flux-router-component').navigateAction;
+    favicon = require('koa-favicon'),
+    navigateAction = require('fluxible-router').navigateAction;
 
 //router instance
 var apiRouter = new Router();
@@ -14,18 +16,13 @@ var apiRouter = new Router();
 //create our app
 var server = koa();
 
+server.use(favicon(__dirname + '/images/favicon.ico'));
+
 //mount our web api
-server.use(mount('/api', apiRouter.middleware()));
+//server.use(mount('/api', apiRouter.middleware()));
 
 //mount our static middleware
-server.use(mount('/dist', serve(__dirname + '/dist', {defer: true})));
-
-//register middleware
-require('./middleware/logger')(server);
-require('./middleware/content_types')(server);
-
-//register routes
-require('./routes/server_routes')(apiRouter);
+//server.use(mount('/dist', serve(__dirname + '/dist', {defer: true})));
 
 //index component
 var HtmlComponent = React.createFactory(require('./components/html.jsx'));
@@ -48,10 +45,13 @@ server.use(mount("/", function *( next ) {
     var actionContext = context.getActionContext();
     var executeAction = thunkify(actionContext.executeAction);
 
+
+    console.log(_this.path);
     // Execute navigation action
     try {
         yield executeAction(navigateAction, {url: _this.path});
     } catch ( err ) {
+        console.error(err);
         if ( err.status === 404 ) {
             this.throw(404);
         }
