@@ -39,6 +39,7 @@ class RepoListContainer extends React.Component {
         //trigger the getData only after a debounce;
         if ( this.debounce ) {
             clearTimeout(this.debounce);
+            this.setState({numberOfStars: filter});
         }
         this.debounce = setTimeout(() => {
             this.getData(this.props.repoStoreState.sort, filter);
@@ -73,14 +74,11 @@ class RepoListContainer extends React.Component {
         this.context.executeAction(getReactRepositories, {sort, numStars});
     }
 
-    /**
-     * http://facebook.github.io/react/docs/component-specs.html
-     * Invoked once, only on the client (not on the server), immediately after the initial rendering occurs.
-     * At this point in the lifecycle, the component has a DOM representation which you can access via
-     * React.findDOMNode(this). If you want to integrate with other JavaScript frameworks, set timers using
-     * setTimeout or setInterval, or send AJAX requests, perform those operations in this method.
-     */
-    componentDidMount() {
+
+    componentWillReceiveProps( nextProps ) {
+        if ( nextProps.repoStoreState.numberOfStars !== this.state.numberOfStars ) {
+            this.setState({numberOfStars: nextProps.repoStoreState.numberOfStars});
+        }
     }
 
     /**
@@ -107,7 +105,7 @@ class RepoListContainer extends React.Component {
             <div {...this.props}>
                 <RepoListFilter
                     className="col-sm-3"
-                    stars={this.props.repoStoreState.numberOfStars}
+                    stars={this.state.numberOfStars}
                     sort={this.props.repoStoreState.sort}
                     applySort={this.applySort.bind(this)}
                     applyFilter={this.applyFilter.bind(this)}
