@@ -16,6 +16,13 @@ export const noop = function() {
  * @type {string}
  */
 export const SORT_STARS = 'stars';
+
+/**
+ * Sort amount
+ * @type {string}
+ */
+export const DEFAULT_STARS_AMOUNT = 500;
+
 /**
  * Sort by updated
  * @type {string}

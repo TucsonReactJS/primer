@@ -3,25 +3,26 @@
  * This repo uses a very basic gulp + webpack + babel build to write React with ES6, and build it for the browser
  * @type {Gulp|exports}
  */
-const gulp          = require('gulp')
+const gulp        = require('gulp')
     , gwebpack    = require('gulp-webpack')
     , browserSync = require('browser-sync')
+    , nodemon     = require('gulp-nodemon')
     , reload      = browserSync.reload
-    , del = require('del')
-    , $ = require('gulp-load-plugins')({ pattern: ['gulp-*'] });
+    , del         = require('del')
+    , $           = require('gulp-load-plugins')({pattern: ['gulp-*']});
 
 /**
  * A simple task to clean any build products
  */
-gulp.task('clean', function(cb) {
-  del(['build'], cb);
+gulp.task('clean', function( cb ) {
+    del(['build'], cb);
 });
 
 /**
  * A simple task to copy our HTML file and images to the dist directory
  */
 gulp.task('copy', function() {
-     return gulp.src("./assets/images/**/*.*").pipe(gulp.dest("dist/assets/images"));
+    return gulp.src("./assets/images/**/*.*").pipe(gulp.dest("dist/assets/images"));
 });
 
 /**
@@ -52,13 +53,26 @@ gulp.task('pack', function() {
  * Transpile ES6 & JSX to ES5 so unit testing tools can import the files
  */
 
-gulp.task('transpile',['clean'], function () {
-    return gulp.src(['app/**/*.js','app/**/*.jsx'])
+gulp.task('transpile', ['clean'], function() {
+    return gulp.src(['app/**/*.js', 'app/**/*.jsx'])
         .pipe($.babel())
         .pipe(gulp.dest('build/js'));
 });
 
-
+gulp.task('develop', function() {
+    nodemon({
+        "execMap": {
+            "js": "node --harmony",
+            "jsx": "node --harmony"
+        },
+        script: 'server.js'
+        , ext: 'jsx js'
+        , tasks: ['build']
+    })
+        .on('restart', function() {
+            console.log('restarted!')
+        })
+})
 
 /**
  * The default task is build

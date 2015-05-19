@@ -9,6 +9,7 @@ export default
 class RepoList extends React.Component {
     constructor( props ) {
         super(props);
+        this.state = {trendingUp:{},trendingDown:{}}
     }
 
     /**

@@ -10,7 +10,6 @@ let dBug = debug("stateHelper");
  * @return {String}
  */
 export function shareState( application, context ) {
-    dBug(application.getComponent());
 
     var state = application.dehydrate(context);
     var serializedState = serialize(state);

@@ -2,35 +2,33 @@
 import React from "react"
 import RepoList from "./repo_list"
 import RepoListFilter from "./repo_list_filter"
-import request from "superagent"
+import ReposStore from "../../stores/repos_store"
+import getReactRepositories from "../../actions/get_repos"
+import connectToStores from 'fluxible/addons/connectToStores';
+
 /*
-* ES6 destructuring assignment
-* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-*/
-import {API_BASE,SORT_STARS,SORT_FORKS,SORT_UPDATED} from "../../constants";
+ * ES6 destructuring assignment
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+ */
+import {API_BASE,SORT_STARS,SORT_FORKS,SORT_UPDATED,DEFAULT_STARS_AMOUNT} from "../../constants";
 
 /**
  * The RepoListContainer wraps the RepoList and provides
  */
-export default
 class RepoListContainer extends React.Component {
-    constructor( props ) {
-        super(props);
-
-        this.state = {
-            repos: [],
-            sort: RepoListContainer.defaultState.sort,
-            stars: RepoListContainer.defaultState.stars
-        };
+    constructor( props, context ) {
+        super(props, context);
+        this.state = {error:false};
     }
+
 
     /**
      * Clear the current filters
      */
     clearFilters() {
-        const sort = RepoListContainer.defaultState.sort;
-        const stars = RepoListContainer.defaultState.stars;
-        this.setState({sort: sort, stars: stars}, this.getData);
+        const sort = SORT_STARS;
+        const numStars = DEFAULT_STARS_AMOUNT;
+        //this.getData(sort, numStars);
     }
 
     /**
@@ -39,16 +37,16 @@ class RepoListContainer extends React.Component {
      */
     applyFilter( filter ) {
 
-        this.setState({stars: filter}, () => {
-            //trigger the getData only after a debounce;
-            if ( this.debounce ) {
-                clearTimeout(this.debounce);
-            }
-            this.debounce = setTimeout(() => {
-                this.getData();
-            }, 500);
+        /* this.setState({stars: filter}, () => {
+         //trigger the getData only after a debounce;
+         if ( this.debounce ) {
+         clearTimeout(this.debounce);
+         }
+         this.debounce = setTimeout(() => {
+         this.getData();
+         }, 500);
 
-        });
+         });*/
 
     }
 
@@ -69,24 +67,14 @@ class RepoListContainer extends React.Component {
      * @param sort value
      */
     applySort( sort ) {
-        this.setState({sort: sort}, this.getData);
+        //this.setState({sort: sort}, this.getData);
     }
 
     /**
      * Get data from our remote endpoint
      */
-    getData() {
-        request.get(API_BASE + "search/repositories")
-            .query({q: `react ${SORT_STARS}:>=${this.state.stars}`})
-            .query({sort: this.state.sort})
-            .end(( err, resp ) => {
-
-                if ( !err ) {
-                    this.setState({repos: resp.body.items, error: null});
-                } else {
-                    this.setState({error: resp.body.message});
-                }
-            });
+    getData( sort, numStars ) {
+        this.context.executeAction(getReactRepositories, {sort, numStars});
     }
 
     /**
@@ -97,7 +85,6 @@ class RepoListContainer extends React.Component {
      * setTimeout or setInterval, or send AJAX requests, perform those operations in this method.
      */
     componentDidMount() {
-        this.getData();
     }
 
     /**
@@ -122,22 +109,25 @@ class RepoListContainer extends React.Component {
         }
         return (
             <div {...this.props}>
-                <RepoListFilter 
-                    className="col-sm-3" 
-                    stars={this.state.stars} 
-                    sort={this.state.sort} 
-                    applySort={this.applySort.bind(this)} 
-                    applyFilter={this.applyFilter.bind(this)} 
-                    clearFilters={this.clearFilters.bind(this)} />
-                 {error}
-                <RepoList repos={this.state.repos} className="col-sm-9" />
+                <RepoListFilter
+                    className="col-sm-3"
+                    stars={this.props.repoStoreState.stars}
+                    sort={this.props.repoStoreState.sort}
+                    applySort={this.applySort.bind(this)}
+                    applyFilter={this.applyFilter.bind(this)}
+                    clearFilters={this.clearFilters.bind(this)}/>
+                {error}
+                <RepoList repos={this.props.repoStoreState.repos} className="col-sm-9"/>
             </div>
         );
     }
 }
-/**
- * https://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html
- * Default state for RepoListContainer. getDefaultState is not available in ES6 React
- * @type {{stars: string, sort: string}}
- */
-RepoListContainer.defaultState = {stars: "500", sort: SORT_STARS};
+RepoListContainer = connectToStores(RepoListContainer, [ReposStore], function( stores, props ) {
+    return {
+        repoStoreState: stores.ReposStore.getState()
+    };
+});
+
+
+export default RepoListContainer;
+
