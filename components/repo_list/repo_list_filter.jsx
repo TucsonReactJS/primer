@@ -113,7 +113,7 @@ class RepoListFilter extends React.Component {
  * @type {{filters: *}}
  */
 RepoListFilter.propTypes = {
-    stars: React.PropTypes.string,
+    stars: React.PropTypes.number,
     sort: React.PropTypes.string,
     applyFilter: React.PropTypes.func,
     clearFilters: React.PropTypes.func,
@@ -125,7 +125,7 @@ RepoListFilter.propTypes = {
  */
 RepoListFilter.defaultProps = {
     sort: "stars",
-    stars: "500",
+    stars: 500,
     applySort: noop,
     applyFilter: noop,
     clearFilters: noop

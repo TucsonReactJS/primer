@@ -5,6 +5,12 @@ export default function getReactRepositories(actionContext, payload) {
     //indicate that we are beginning to load repositories
     actionContext.dispatch('LOADING_REPOS',true);
 
+    //update the number of stars
+    actionContext.dispatch('UPDATE_STARS',payload.numStars);
+
+    //update the sort
+    actionContext.dispatch('UPDATE_SORT',payload.sort);
+
     //return a promise object
     return new Promise((resolve,reject)=>{
 

@@ -47,6 +47,22 @@ class ReposStore extends BaseStore {
         this.repos = payload;
         this.emitChange();
     }
+    /**
+     * Handler that is called when a new number of stars is requested
+     * @param payload
+     */
+    handleUpdateStars(payload){
+        this.numberOfStars = payload;
+        this.emitChange();
+    }
+    /**
+     * Handler that is called when a new sort is requested
+     * @param payload
+     */
+    handleUpdateSort(payload) {
+        this.sort = payload;
+        this.emitChange();
+    }
 
     getState() {
         return {
@@ -72,7 +88,9 @@ class ReposStore extends BaseStore {
 ReposStore.storeName = 'ReposStore'; // PR open in dispatchr to remove this need
 ReposStore.handlers = {
     'LOADING_REPOS': 'handleReposLoading',
-    'RECEIVED_REPOS': 'handleReceivedRepos'
+    'RECEIVED_REPOS': 'handleReceivedRepos',
+    'UPDATE_STARS':'handleUpdateStars',
+    'UPDATE_SORT':'handleUpdateSort'
 };
 
 export default ReposStore;

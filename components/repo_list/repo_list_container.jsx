@@ -18,9 +18,8 @@ import {API_BASE,SORT_STARS,SORT_FORKS,SORT_UPDATED,DEFAULT_STARS_AMOUNT} from "
 class RepoListContainer extends React.Component {
     constructor( props, context ) {
         super(props, context);
-        this.state = {error:false};
+        this.state = {error: false};
     }
-
 
     /**
      * Clear the current filters
@@ -28,7 +27,7 @@ class RepoListContainer extends React.Component {
     clearFilters() {
         const sort = SORT_STARS;
         const numStars = DEFAULT_STARS_AMOUNT;
-        //this.getData(sort, numStars);
+        this.getData(sort, numStars);
     }
 
     /**
@@ -37,16 +36,13 @@ class RepoListContainer extends React.Component {
      */
     applyFilter( filter ) {
 
-        /* this.setState({stars: filter}, () => {
-         //trigger the getData only after a debounce;
-         if ( this.debounce ) {
-         clearTimeout(this.debounce);
-         }
-         this.debounce = setTimeout(() => {
-         this.getData();
-         }, 500);
-
-         });*/
+        //trigger the getData only after a debounce;
+        if ( this.debounce ) {
+            clearTimeout(this.debounce);
+        }
+        this.debounce = setTimeout(() => {
+            this.getData(this.props.repoStoreState.sort, filter);
+        }, 500);
 
     }
 
@@ -67,7 +63,7 @@ class RepoListContainer extends React.Component {
      * @param sort value
      */
     applySort( sort ) {
-        //this.setState({sort: sort}, this.getData);
+        this.getData(sort, this.props.repoStoreState.numberOfStars);
     }
 
     /**
@@ -111,7 +107,7 @@ class RepoListContainer extends React.Component {
             <div {...this.props}>
                 <RepoListFilter
                     className="col-sm-3"
-                    stars={this.props.repoStoreState.stars}
+                    stars={this.props.repoStoreState.numberOfStars}
                     sort={this.props.repoStoreState.sort}
                     applySort={this.applySort.bind(this)}
                     applyFilter={this.applyFilter.bind(this)}
@@ -122,12 +118,14 @@ class RepoListContainer extends React.Component {
         );
     }
 }
+RepoListContainer.contextTypes = {
+    executeAction: React.PropTypes.func.isRequired
+};
 RepoListContainer = connectToStores(RepoListContainer, [ReposStore], function( stores, props ) {
     return {
         repoStoreState: stores.ReposStore.getState()
     };
 });
-
 
 export default RepoListContainer;
 
