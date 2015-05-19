@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-//import RepoListItem from "./repo_list_item"
+import RepoListItem from "./repo_list_item"
 
 /**
  * The RepoList is a list of GitHub repositories
@@ -66,7 +66,7 @@ class RepoList extends React.Component {
                 , trendingDown = this.state.trendingDown[r.id] !== undefined;
 
             //using the IDX as the key is important here, as we are tracking by their position in the set
-            return<span key={idx} ></span> // <RepoListItem key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
+            return <RepoListItem key={idx} repo={r} trendingUp={trendingUp} trendingDown={trendingDown}/>;
 
         });
 

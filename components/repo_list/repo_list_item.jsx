@@ -2,7 +2,6 @@
 import React from "react";
 import TrendingDownArrow from "../common/trending_down_arrow"
 import TrendingUpArrow from "../common/trending_up_arrow"
-import snabbt from "snabbt.js"
 
 /**
  * The RepoList is a list of GitHub repositories
@@ -39,12 +38,11 @@ class RepoListItem extends React.Component {
      */
     componentWillUpdate( nextProps, nextState ) {
         if ( nextProps.repo.id !== this.props.repo.id ) {
-            const el = React.findDOMNode(this);
-            this.animation = snabbt(el, {
+           // const el = React.findDOMNode(this);
+           /* this.animation = snabbt(el, {
                 position: [5000, 0, 0],
                 duration: 150
-            });
-
+            });*/
         }
 
     }
@@ -59,10 +57,10 @@ class RepoListItem extends React.Component {
     componentDidUpdate( prevProps, prevState ) {
 
         if ( prevProps.repo.id !== this.props.repo.id ) {
-            this.animation.snabbt({
+            /*this.animation.snabbt({
                 position: [0, 0, 0],
                 easing: 'easeOut'
-            });
+            });*/
 
         }
 

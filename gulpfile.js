@@ -21,8 +21,7 @@ gulp.task('clean', function(cb) {
  * A simple task to copy our HTML file and images to the dist directory
  */
 gulp.task('copy', function() {
-    var html     = gulp.src("./app/index.html").pipe(gulp.dest("dist/"))
-        , images = gulp.src("./app/images/**/*.*").pipe(gulp.dest("dist/images"));
+     return gulp.src("./assets/images/**/*.*").pipe(gulp.dest("dist/assets/images"));
 });
 
 /**
@@ -30,13 +29,13 @@ gulp.task('copy', function() {
  * transpile ES6 and outputs it to the dist directory
  */
 gulp.task('pack', function() {
-    return gulp.src('./app/client.js')
+    return gulp.src('./client.js')
         .pipe(gwebpack({
             resolve: {
                 extensions: ['', '.js', '.jsx']
             },
             output: {
-                path: __dirname + '/dist/js',
+                path: __dirname + '/dist',
                 filename: 'client.js'
             },
             module: {
@@ -59,44 +58,12 @@ gulp.task('transpile',['clean'], function () {
         .pipe(gulp.dest('build/js'));
 });
 
-/**
- * Simple watcher that watches for certain changes, and launches the appropriate tasks
- */
-gulp.task('watch', ['build'], function() {
 
-    browserSync({
-        notify: true,
-        port: 8000,
-        server: {
-            baseDir: 'dist'
-        }
-    });
-
-    //watch for JS changes
-    gulp.watch(['app/**/*.jsx', 'app/**/*.js'], ['pack', 'copy']);
-
-    //watch for static asset changes
-    gulp.watch(['app/assets/images/**/*'], ['copy']);
-
-    var reloading;
-
-    gulp.watch(['./dist/**'], function( file ) {
-
-        clearTimeout(reloading);
-
-        reloading = setTimeout(function() {
-
-            reload();
-
-        }, 100);
-    });
-
-});
 
 /**
  * The default task is build
  */
-gulp.task("default", ["watch"]);
+gulp.task("default", ["build"]);
 
 /**
  * Define our build task

@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/TucsonReactJS/primer",
   "dependencies": {
+    "debug": "^2.2.0",
     "fluxible": "^0.4.9",
     "fluxible-router": "^0.1.4",
     "koa": "^0.20.0",

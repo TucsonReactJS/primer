@@ -1,7 +1,7 @@
 import React from 'react';
 import app from './app';
 
-const dehydratedState = window.App; // Sent from the server
+const dehydratedState = window.App.Context; // Sent from the server
 
 window.React = React; // For chrome dev tool support
 

@@ -22,7 +22,7 @@ server.use(favicon(__dirname + '/images/favicon.ico'));
 //server.use(mount('/api', apiRouter.middleware()));
 
 //mount our static middleware
-//server.use(mount('/dist', serve(__dirname + '/dist', {defer: true})));
+server.use(mount('/dist', serve(__dirname + '/dist', {defer: true})));
 
 //index component
 var HtmlComponent = React.createFactory(require('./components/html.jsx'));
@@ -51,7 +51,7 @@ server.use(mount("/", function *( next ) {
     try {
         yield executeAction(navigateAction, {url: _this.path});
     } catch ( err ) {
-        console.error(err);
+
         if ( err.status === 404 ) {
             this.throw(404);
         }
@@ -59,13 +59,13 @@ server.use(mount("/", function *( next ) {
         this.throw(500, 'Error happened.');
     }
 
-    var AppComponent = app.getAppComponent();
+
+    var AppComponent = app.getComponent();
     var html = React.renderToStaticMarkup(HtmlComponent({
         title: "Primer",
         state: stateHelper.shareState(app, context),
-        markup: React.renderToString(AppComponent({
-            context: context.getComponentContext()
-        }))
+        markup: React.renderToString(context.createElement()),
+        context:context.getComponentContext()
     }));
 
     //set the body

@@ -1,4 +1,6 @@
-import serialize from "serialize-javascript";
+import serialize from "serialize-javascript"
+import debug from "debug"
+let dBug = debug("stateHelper");
 /*
  * Share state with the client by injecting Context into the App object
  *
@@ -8,7 +10,7 @@ import serialize from "serialize-javascript";
  * @return {String}
  */
 export function shareState( application, context ) {
-    debug(application.getComponent());
+    dBug(application.getComponent());
 
     var state = application.dehydrate(context);
     var serializedState = serialize(state);
