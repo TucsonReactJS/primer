@@ -3,6 +3,10 @@ import ApplicationStore from '../stores/application_store';
 
 export default class Html extends React.Component {
     render() {
+        var bodyStyle = {
+            fontFamily: 'Open Sans',
+        };
+
         //render content
         return (
             <html>
@@ -33,8 +37,9 @@ export default class Html extends React.Component {
                 <meta name="viewport"
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"></meta>
                 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+                <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'></link>
             </head>
-            <body>
+            <body style={bodyStyle}>
             <div id="app" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>
             <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
             <script src="/dist/client.js" defer></script>
