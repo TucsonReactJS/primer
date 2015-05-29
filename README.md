@@ -6,6 +6,9 @@ welcome if I get it wrong!
 [![Dependencies Status][dependencies-image]][dependencies-url]
 [![devDependency Status][dev-dependencies-image]][dev-dependencies-url]
 
+## Fluxible branch
+This branch takes the master branch and makes it an Isomorphic React application using the awesome [fluxible](http://fluxible.io/) framework by Yahoo!. This is still a WIP, but stay tuned as I finish porting it and making it work. 
+
 ## Build
 An idomatic React application will use a build system to transpile JSX into JS for running inside the browser. This
 project uses [gulp](http://gulpjs.com/) and [webpack](http://webpack.github.io/) to accomplish this task. To build this
@@ -15,7 +18,7 @@ project type the following in your shell of choice-
 * ```npm install -g gulp``` - Install gulp globally
 * ```cd primer``` - change into the primer directory
 * ```npm install``` - install dependencies
-* ```gulp``` - build and watch using browsersync
+* ```gulp``` - build and watch using nodemon
 
 ## ES6
 React 0.13 introduces the ability to write your React application using standard ES6 syntax. 
