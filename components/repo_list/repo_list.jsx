@@ -72,7 +72,7 @@ class RepoList extends React.Component {
         });
 
         return (
-            <div {...this.props} className={this.props.className + " repo-list"}>
+            <div {...this.props} className={this.props.className + " repo-list"} style={{overflowY:"auto",height:"100vh"}}>
                 <h1>ReactJS
                     <small> {this.props.repos.length} repositories</small>
                 </h1>

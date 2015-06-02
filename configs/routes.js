@@ -15,6 +15,16 @@ export default {
 
         }
     },
+    tiles: {
+        path: '/tiles',
+        method: 'get',
+        handler: require('../components/Tiles'),
+        label: 'Tiles',
+        action: ( context, payload, done ) => {
+            context.dispatch('UPDATE_PAGE_TITLE', {pageTitle: 'Home | tiles'});
+            done();
+        }
+    },
     dynamicpage: {
         path: '/page/:id',
         method: 'get',

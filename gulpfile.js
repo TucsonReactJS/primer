@@ -59,7 +59,7 @@ gulp.task('transpile', ['clean'], function() {
         .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('develop', function() {
+gulp.task('develop', ['build'],function() {
     nodemon({
         "execMap": {
             "js": "node --harmony",
@@ -77,7 +77,7 @@ gulp.task('develop', function() {
 /**
  * The default task is build
  */
-gulp.task("default", ["build"]);
+gulp.task("default", ["develop"]);
 
 /**
  * Define our build task
