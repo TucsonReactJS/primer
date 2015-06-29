@@ -5,6 +5,11 @@ html, body {
   margin: 0 auto;
 }
 
+@font-face {
+  font-family: 'true_crimesregular';
+  src: url('../fonts/crimes.ttf');
+}
+
 body {
   background: url(../images/SLCBackground.png) rgb(36, 78, 101);
   line-height: inherit;
@@ -70,14 +75,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: .8;
+  opacity: 1;
   background-size: contain;
   background: url(../images/ufoMain.png) no-repeat center center;
   .label {
-    background: rgba(33, 33, 33, .5);
-    color: #fff;
-    font-size: 14px;
+    color: rgb(255, 241, 2);
+    text-shadow: rgb(171, 160, 3) -3px 5px 0;
+    font-size: 50px;
     padding: 12px;
+    font-family: true_crimesregular, serif;
   }
   transition: width 500ms, height 500ms ease;
   animation: fade-fly-in 500ms ease;
@@ -106,7 +112,7 @@ body {
     transform: translateY(10px);
   }
   100% {
-    opacity: .8;
+    opacity: 1;
     transform: translateY(0px);
   }
 }

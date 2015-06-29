@@ -3,22 +3,22 @@
  * This repo uses a very basic gulp + webpack + babel build to write React with ES6, and build it for the browser
  * @type {Gulp|exports}
  */
-const gulp          = require('gulp')
-    , gwebpack    = require('gulp-webpack')
-    , browserSync = require('browser-sync')
+const gulp         = require('gulp')
+    , gwebpack     = require('gulp-webpack')
+    , browserSync  = require('browser-sync')
     , path         = require('path')
     , concat       = require('gulp-concat')
     , autoprefixer = require('gulp-autoprefixer')
     , less         = require('gulp-less')
-    , reload      = browserSync.reload
-    , del = require('del')
-    , $ = require('gulp-load-plugins')({ pattern: ['gulp-*'] });
+    , reload       = browserSync.reload
+    , del          = require('del')
+    , $            = require('gulp-load-plugins')({pattern: ['gulp-*']});
 
 /**
  * A simple task to clean any build products
  */
-gulp.task('clean', function(cb) {
-  del(['build'], cb);
+gulp.task('clean', function( cb ) {
+    del(['build'], cb);
 });
 
 /**
@@ -41,13 +41,13 @@ gulp.task('less', ['clean'], function() {
 
 });
 
-
 /**
  * A simple task to copy our HTML file and images to the dist directory
  */
 gulp.task('copy', function() {
-    var html     = gulp.src("./app/index.html").pipe(gulp.dest("dist/"))
-        sounds= gulp.src("./app/sounds/**/*.*").pipe(gulp.dest("dist/sounds"))
+    var html = gulp.src("./app/index.html").pipe(gulp.dest("dist/"))
+    fonts = gulp.src("./app/fonts/**/*.*").pipe(gulp.dest("dist/fonts"))
+    sounds = gulp.src("./app/sounds/**/*.*").pipe(gulp.dest("dist/sounds"))
         , images = gulp.src("./app/images/**/*.*").pipe(gulp.dest("dist/images"));
 });
 
@@ -79,8 +79,8 @@ gulp.task('pack', function() {
  * Transpile ES6 & JSX to ES5 so unit testing tools can import the files
  */
 
-gulp.task('transpile',['clean'], function () {
-    return gulp.src(['app/**/*.js','app/**/*.jsx'])
+gulp.task('transpile', ['clean'], function() {
+    return gulp.src(['app/**/*.js', 'app/**/*.jsx'])
         .pipe($.babel())
         .pipe(gulp.dest('build/js'));
 });
@@ -129,4 +129,4 @@ gulp.task("default", ["watch"]);
 /**
  * Define our build task
  */
-gulp.task("build", ["less","copy", "pack"]);
+gulp.task("build", ["less", "copy", "pack"]);
