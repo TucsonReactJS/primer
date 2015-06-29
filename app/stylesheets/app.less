@@ -76,8 +76,8 @@ body {
   justify-content: center;
   align-items: center;
   opacity: 1;
-  background-size: contain;
   background: url(../images/ufoMain.png) no-repeat center center;
+  background-size: contain;
   .label {
     color: rgb(255, 241, 2);
     text-shadow: rgb(171, 160, 3) -3px 5px 0;
@@ -85,21 +85,24 @@ body {
     padding: 12px;
     font-family: true_crimesregular, serif;
   }
-  transition: width 500ms, height 500ms ease;
+
   animation: fade-fly-in 500ms ease;
   &.selected {
     background: url(../images/ufoSelected.png) no-repeat center center;
+    background-size: contain;
+
   }
 
   &.win {
+    transition: width 500ms, height 500ms ease;
     border: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     opacity: 1;
     z-index: 1;
     background-color: rgb(36, 78, 101);

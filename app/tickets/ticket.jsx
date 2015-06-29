@@ -10,6 +10,6 @@ export default class Ticket extends React.Component {
         if ( this.props.win ) {
             className = className + " win";
         }
-        return (<li className={className}><span className="label">{this.props.name}</span></li>)
+        return (<li className={className} style={this.props.style}><span className="label">{this.props.name}</span></li>)
     }
 }
