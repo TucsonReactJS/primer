@@ -101,6 +101,8 @@ gulp.task('watch', ['build'], function() {
     //watch for JS changes
     gulp.watch(['app/**/*.jsx', 'app/**/*.js'], ['pack', 'copy']);
 
+    gulp.watch(['app/**/*.less'], ['less']);
+
     //watch for static asset changes
     gulp.watch(['app/index.html', 'app/assets/images/**/*'], ['copy']);
 

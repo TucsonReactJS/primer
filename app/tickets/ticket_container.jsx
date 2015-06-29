@@ -15,17 +15,6 @@ export default class TicketContainer extends React.Component {
     constructor() {
         super();
         this.state = {tickets: [], toAdd: ""};
-
-    }
-
-    addTicket( event ) {
-        event.preventDefault();
-        let tickets = this.state.tickets;
-        tickets.push({name: this.state.toAdd, color: randomColor(), selected: false});
-
-        //add to the state
-        this.setState({tickets, toAdd: ""});
-
         //select sound
         this.selectSound = new Howl({
             urls: ["/sounds/blip.mp3"],
@@ -33,6 +22,25 @@ export default class TicketContainer extends React.Component {
             loop: false,
             volume: 1
         });
+        this.winSound = new Howl({
+            urls: ["/sounds/applause.mp3"],
+            autoplay: false,
+            loop: false,
+            volume: 1
+        });
+
+        //countdown
+        this.time = 30000;
+        this.decrement = .001;
+    }
+
+    addTicket( event ) {
+        event.preventDefault();
+        let tickets = this.state.tickets;
+        tickets.push({name: this.state.toAdd, color: randomColor(), selected: false, win: false});
+
+        //add to the state
+        this.setState({tickets, toAdd: ""});
 
     }
 
@@ -44,7 +52,7 @@ export default class TicketContainer extends React.Component {
         this.setState({tickets: []});
     }
 
-    startSelection() {
+    selectTicket() {
 
         let selected = getRandomInt(0, this.state.tickets.length);
         let tickets = this.state.tickets;
@@ -56,14 +64,7 @@ export default class TicketContainer extends React.Component {
 
         //unselect the last selected
         if ( this.lastSelected ) {
-            //don't re-select the same one
-            if ( tickets[selected] === this.lastSelected ) {
-                //undo the selection
-                this.lastSelected.selected = false;
-                this.lastSelected = null;
-                return;
 
-            }
             this.lastSelected.selected = false;
 
         }
@@ -75,6 +76,46 @@ export default class TicketContainer extends React.Component {
         this.selectSound.play();
 
         this.setState({tickets});
+
+    }
+
+    celebrate() {
+        let tickets = this.state.tickets;
+        let idx = tickets.indexOf(this.lastSelected);
+        this.lastSelected.win = true;
+        tickets[idx] = this.lastSelected;
+        this.winSound.play();
+
+        //update state
+        this.setState({tickets});
+    }
+
+    startSelection() {
+
+        //http://stackoverflow.com/questions/1280263/changing-the-interval-of-setinterval-while-its-running
+        function setDeceleratingTimeout( callback, factor, times ) {
+            var internalCallback = function( t, counter ) {
+                return function() {
+                    if ( t-- > 0 ) {
+                        window.setTimeout(internalCallback, ++counter * factor);
+                        callback(counter === times);
+                    }
+                }
+            }(times, 0);
+
+            window.setTimeout(internalCallback, factor);
+        };
+
+        setDeceleratingTimeout(( done )=> {
+            if ( done ) {
+                requestAnimationFrame(this.celebrate.bind(this));
+            } else {
+
+                requestAnimationFrame(this.selectTicket.bind(this));
+
+            }
+
+        }, 2.2, 120);
 
     }
 

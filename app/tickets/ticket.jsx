@@ -10,6 +10,9 @@ export default class Ticket extends React.Component {
             backgroundColor: this.props.color
         };
         let className = this.props.selected ? "ticket selected" : "ticket";
+        if ( this.props.win ) {
+            className = className + " win";
+        }
         return (<li className={className} style={style}><span className="label">{this.props.name}</span></li>)
     }
 }
