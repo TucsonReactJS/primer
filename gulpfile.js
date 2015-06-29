@@ -6,6 +6,10 @@
 const gulp          = require('gulp')
     , gwebpack    = require('gulp-webpack')
     , browserSync = require('browser-sync')
+    , path         = require('path')
+    , concat       = require('gulp-concat')
+    , autoprefixer = require('gulp-autoprefixer')
+    , less         = require('gulp-less')
     , reload      = browserSync.reload
     , del = require('del')
     , $ = require('gulp-load-plugins')({ pattern: ['gulp-*'] });
@@ -18,10 +22,32 @@ gulp.task('clean', function(cb) {
 });
 
 /**
+ * Compile our LESS into a single CSS file
+ */
+gulp.task('less', ['clean'], function() {
+
+
+    //app styles
+    return gulp.src('./app/stylesheets/app.less')
+        .pipe(less({
+            paths: [path.join(__dirname, 'less', 'includes')]
+        }))
+        .pipe(concat('app.css'))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: true
+        }))
+        .pipe(gulp.dest('./dist/stylesheets'));
+
+});
+
+
+/**
  * A simple task to copy our HTML file and images to the dist directory
  */
 gulp.task('copy', function() {
     var html     = gulp.src("./app/index.html").pipe(gulp.dest("dist/"))
+        sounds= gulp.src("./app/sounds/**/*.*").pipe(gulp.dest("dist/sounds"))
         , images = gulp.src("./app/images/**/*.*").pipe(gulp.dest("dist/images"));
 });
 
@@ -101,4 +127,4 @@ gulp.task("default", ["watch"]);
 /**
  * Define our build task
  */
-gulp.task("build", ["copy", "pack"]);
+gulp.task("build", ["less","copy", "pack"]);

@@ -1,6 +1,6 @@
 'use strict';
 import React from "react"
-import RepoListContainer from "./repo_list/repo_list_container"
+import TicketContainer from "./tickets/ticket_container"
 
 /**
  * The app class represents our top level component
@@ -59,7 +59,7 @@ class App extends React.Component {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <RepoListContainer className="col-md-12"/>
+                    <TicketContainer/>
                 </div>
             </div>
         );
