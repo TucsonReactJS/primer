@@ -37,7 +37,7 @@ export default class TicketContainer extends React.Component {
     addTicket( event ) {
         event.preventDefault();
         let tickets = this.state.tickets;
-        tickets.push({name: this.state.toAdd, color: randomColor(), selected: false, win: false});
+        tickets.push({name: this.state.toAdd, selected: false, win: false});
 
         //add to the state
         this.setState({tickets, toAdd: ""});

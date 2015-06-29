@@ -2,21 +2,23 @@ html, body {
   width: 100%;
   height: 100%;
   padding: 0;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 body {
   background: url(../images/SLCBackground.png) rgb(36, 78, 101);
   line-height: inherit;
   padding: 0;
-  margin:0 auto;
+  margin: 0 auto;
 }
+
 #app {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   background: url(../images/SLCcity.png) no-repeat -325px 375px;
-  background-size:cover;
+  background-size: cover;
 }
+
 .controls {
   z-index: 99999;
   padding: 20px;
@@ -68,7 +70,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity:.8;
+  opacity: .8;
+  background-size: contain;
+  background: url(../images/ufoMain.png) no-repeat center center;
   .label {
     background: rgba(33, 33, 33, .5);
     color: #fff;
@@ -78,7 +82,7 @@ body {
   transition: width 500ms, height 500ms ease;
   animation: fade-fly-in 500ms ease;
   &.selected {
-    border: 4px solid #fff;
+    background: url(../images/ufoSelected.png) no-repeat center center;
   }
 
   &.win {
@@ -92,6 +96,7 @@ body {
     height: 100%;
     opacity: 1;
     z-index: 1;
+    background-color: rgb(36, 78, 101);
   }
 }
 
